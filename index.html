@@ -1,3 +1,5 @@
+checkout this code and tell me why my skills bar is blank
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,10 +12,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 :root{
---nav-dark: rgba(0,0,0,0.85);
---nav-light: rgba(255,255,255,0.85);
---nav-border-dark: rgba(255,255,255,0.1);
---nav-border-light: rgba(0,0,0,0.08);
 --primary:#00ffc8;
 --dark-bg:linear-gradient(-45deg,#000,#0f2027,#203a43,#2c5364);
 --light-bg:linear-gradient(-45deg,#ff9a9e,#fad0c4,#fad0c4,#fbc2eb,#a18cd1);
@@ -142,6 +140,7 @@ width:clamp(130px,35vw,220px);
 border-radius:50%;
 margin-bottom:2rem;
 box-shadow:0 0 25px var(--primary);
+transition: opacity 0.5s ease;
 }
 
 .btn{
@@ -319,59 +318,29 @@ left:-10px;
 }
 
 @media(max-width:768px){
-
 nav{
 position:fixed;
 top:0;
 right:0;
 height:100vh;
-width:75%;
-display:flex;
+width:70%;
+background:#000;
 flex-direction:column;
-align-items:center;
-justify-content:flex-start;
-padding-top:7rem;
-gap:2rem;
-
-background:var(--nav-dark);
-backdrop-filter:blur(15px);
-border-left:1px solid var(--nav-border-dark);
-
+padding-top:6rem;
 transform:translateX(100%);
-transition:transform 0.4s ease;
-z-index:999;
-}
-
-body.light nav{
-background:var(--nav-light);
-border-left:1px solid var(--nav-border-light);
-}
-
-nav.active{
-transform:translateX(0);
-}
-
-nav a{
-font-size:1.6rem;
-font-weight:500;
-opacity:0.85;
 transition:0.3s;
 }
-
-nav a:hover{
-opacity:1;
-transform:translateX(5px);
+nav.active{transform:translateX(0);}
+nav a{margin:1.5rem 0;}
+.menu-icon{display:block;}
+.timeline::after{left:10px;}
+.timeline-item{width:100%;padding-left:40px;padding-right:20px;text-align:left;}
+.timeline-item.right,.timeline-item.left{left:0;}
+.timeline-item::before{left:0;}
 }
-
-.menu-icon{
-display:block;
-font-size:2.2rem;
-}
-
-
-}</style>
+</style>
 </head>
-
+ <link rel="icon" href="images/favicon.ico" type="image/x-icon">
 <body>
 
 <header>
@@ -389,7 +358,7 @@ font-size:2.2rem;
 
 <section id="home" class="reveal">
 <div class="hero-img">
-<img src="images/main.jpeg" alt="">
+<img id="profileImage" src="images/1.jpeg" alt="">
 </div>
 <h1>Hello, I'm Mutondo Choolwe</h1>
 <h3><span id="typing"></span><span class="cursor">|</span></h3>
@@ -489,29 +458,34 @@ entry.target.classList.add("active");
 },{threshold:0.2});
 document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
 
-/* SKILL ANIMATION */
-const skillObserver=new IntersectionObserver(entries=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting){
-const bars=entry.target.querySelectorAll(".progress-bar");
-bars.forEach(bar=>bar.style.width=bar.getAttribute("data-width"));
-}
-});
-},{threshold:0.4});
-skillObserver.observe(document.querySelector("#skills"));
+/* AUTO CHANGING PROFILE IMAGE (SAFE VERSION) */
+document.addEventListener("DOMContentLoaded", () => {
 
-/* CLOSE MENU WHEN CLICKING A LINK */
-document.querySelectorAll("#nav a").forEach(link => {
-link.addEventListener("click", () => {
-nav.classList.remove("active");
-});
-});
+const profileImages = [
+"images/1.jpeg",
+"images/2.jpeg",
+"images/3.jpeg",
+"images/4.jpeg",
+"images/5.jpeg"
+];
 
-/* CLOSE MENU WHEN CLICKING OUTSIDE */
-document.addEventListener("click", (e) => {
-if (!nav.contains(e.target) && !menu.contains(e.target)) {
-nav.classList.remove("active");
-}
+let currentProfileImage = 0;
+const profileImageElement = document.getElementById("profileImage");
+
+if (!profileImageElement) return; // stops errors if id not found
+
+setInterval(() => {
+
+profileImageElement.style.opacity = 0;
+
+setTimeout(() => {
+currentProfileImage = (currentProfileImage + 1) % profileImages.length;
+profileImageElement.src = profileImages[currentProfileImage];
+profileImageElement.style.opacity = 1;
+}, 500);
+
+}, 3000);
+
 });
 
 </script>
