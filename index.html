@@ -142,7 +142,6 @@ width:clamp(130px,35vw,220px);
 border-radius:50%;
 margin-bottom:2rem;
 box-shadow:0 0 25px var(--primary);
-transition: opacity 0.5s ease;
 }
 
 .btn{
@@ -369,11 +368,10 @@ display:block;
 font-size:2.2rem;
 }
 
-}
 
-</style>
+}</style>
 </head>
- <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+
 <body>
 
 <header>
@@ -391,7 +389,7 @@ font-size:2.2rem;
 
 <section id="home" class="reveal">
 <div class="hero-img">
-<img id="profileImage" src="images/1.jpeg" alt="">
+<img src="images/main.jpeg" alt="">
 </div>
 <h1>Hello, I'm Mutondo Choolwe</h1>
 <h3><span id="typing"></span><span class="cursor">|</span></h3>
@@ -491,49 +489,16 @@ entry.target.classList.add("active");
 },{threshold:0.2});
 document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
 
-/* AUTO CHANGING PROFILE IMAGE (SAFE VERSION) */
-document.addEventListener("DOMContentLoaded", () => {
-
-const profileImages = [
-"images/1.jpeg",
-"images/2.jpeg",
-"images/3.jpeg",
-"images/4.jpeg",
-"images/5.jpeg"
-];
-
-let currentProfileImage = 0;
-const profileImageElement = document.getElementById("profileImage");
-
-if (!profileImageElement) return; // stops errors if id not found
-
-setInterval(() => {
-
-profileImageElement.style.opacity = 0;
-
-setTimeout(() => {
-currentProfileImage = (currentProfileImage + 1) % profileImages.length;
-profileImageElement.src = profileImages[currentProfileImage];
-profileImageElement.style.opacity = 1;
-}, 500);
-
-}, 3000);
-
-});
-
- /* SKILLS ANIMATION */
-const skillBars = document.querySelectorAll(".progress-bar");
-
-const skillObserver = new IntersectionObserver(entries => {
-entries.forEach(entry => {
-if (entry.isIntersecting) {
-const bar = entry.target;
-bar.style.width = bar.getAttribute("data-width");
+/* SKILL ANIMATION */
+const skillObserver=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+const bars=entry.target.querySelectorAll(".progress-bar");
+bars.forEach(bar=>bar.style.width=bar.getAttribute("data-width"));
 }
 });
-}, { threshold: 0.5 });
-
-skillBars.forEach(bar => skillObserver.observe(bar));
+},{threshold:0.4});
+skillObserver.observe(document.querySelector("#skills"));
 
 /* CLOSE MENU WHEN CLICKING A LINK */
 document.querySelectorAll("#nav a").forEach(link => {
@@ -548,11 +513,8 @@ if (!nav.contains(e.target) && !menu.contains(e.target)) {
 nav.classList.remove("active");
 }
 });
- 
+
 </script>
 
 </body>
-
 </html>
-
-
