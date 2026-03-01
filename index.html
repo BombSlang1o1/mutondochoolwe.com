@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mutondo Choolwe</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+:root{
+--primary:#00ffc8;
+--dark-bg:linear-gradient(-45deg,#000,#0f2027,#203a43,#2c5364);
+--light-bg:linear-gradient(-45deg,#ff9a9e,#fad0c4,#fad0c4,#fbc2eb,#a18cd1);
+--text-dark:#ffffff;
+--text-light:#222;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+scroll-behavior:smooth;
+}
+
+body{
+background:var(--dark-bg);
+background-size:400% 400%;
+animation:gradient 15s ease infinite;
+color:var(--text-dark);
+transition:0.5s;
+overflow-x:hidden;
+}
+
+body.light{
+background:var(--light-bg);
+color:var(--text-light);
+}
+
+@keyframes gradient{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+header{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+padding:1rem 6%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:rgba(0,0,0,0.4);
+backdrop-filter:blur(10px);
+z-index:1000;
+}
+
+body.light header{
+background:rgba(255,255,255,0.3);
+}
+
+.logo{
+font-size:clamp(1.8rem,4vw,2.5rem);
+font-weight:800;
+}
+
+nav{
+display:flex;
+gap:2rem;
+}
+
+nav a{
+font-size:clamp(1.2rem,2.5vw,1.5rem);
+color:inherit;
+position:relative;
+}
+
+nav a::after{
+content:"";
+position:absolute;
+left:0;
+bottom:-4px;
+width:0%;
+height:2px;
+background:var(--primary);
+transition:0.3s;
+}
+
+nav a:hover::after{
+width:100%;
+}
+
+.menu-icon{
+display:none;
+font-size:2rem;
+cursor:pointer;
+}
+
+.toggle{
+cursor:pointer;
+font-size:1.8rem;
+margin-left:1rem;
+}
+
+section{
+min-height:100vh;
+padding:8rem 6% 4rem;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+}
+
+h1{
+font-size:clamp(2.5rem,6vw,4rem);
+margin-bottom:1rem;
+}
+
+h3{
+font-size:clamp(1.5rem,4vw,2rem);
+margin-bottom:1rem;
+color:var(--primary);
+}
+
+p{
+max-width:700px;
+font-size:clamp(1.3rem,3vw,1.6rem);
+line-height:1.6;
+}
+
+.hero-img img{
+width:clamp(130px,35vw,220px);
+border-radius:50%;
+margin-bottom:2rem;
+box-shadow:0 0 25px var(--primary);
+transition: opacity 0.5s ease;
+}
+
+.btn{
+margin-top:2rem;
+padding:0.8rem 2rem;
+border-radius:30px;
+background:var(--primary);
+color:black;
+font-weight:600;
+cursor:pointer;
+transition:0.3s;
+text-decoration:none;
+}
+
+.btn:hover{
+transform:translateY(-4px);
+background:white;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:1.5rem;
+margin-top:2rem;
+width:100%;
+max-width:1000px;
+}
+
+.card{
+background:rgba(255,255,255,0.08);
+padding:1.5rem;
+border-radius:15px;
+backdrop-filter:blur(8px);
+transition:0.4s;
+}
+
+.card:hover{
+transform:translateY(-8px);
+box-shadow:0 0 20px var(--primary);
+}
+
+.socials{
+margin-top:2rem;
+}
+
+.socials a{
+margin:0 0.7rem;
+font-size:1.8rem;
+color:inherit;
+transition:0.3s;
+}
+
+.socials a:hover{
+color:var(--primary);
+}
+
+footer{
+text-align:center;
+padding:2rem;
+font-size:1.3rem;
+opacity:0.8;
+}
+
+.cursor{
+animation:blink 0.7s infinite;
+}
+
+@keyframes blink{
+0%,50%{opacity:1;}
+51%,100%{opacity:0;}
+}
+
+.reveal{
+opacity:0;
+transform:translateY(40px);
+transition:0.8s;
+}
+
+.reveal.active{
+opacity:1;
+transform:translateY(0);
+}
+
+/* ===== SKILLS ===== */
+.skills-container{
+width:100%;
+max-width:800px;
+margin-top:2rem;
+}
+
+.skill{
+margin:1.5rem 0;
+text-align:left;
+}
+
+.skill span{
+font-size:1.3rem;
+font-weight:500;
+}
+
+.progress{
+width:100%;
+height:12px;
+background:rgba(255,255,255,0.1);
+border-radius:20px;
+overflow:hidden;
+margin-top:8px;
+}
+
+.progress-bar{
+height:100%;
+width:0;
+background:var(--primary);
+border-radius:20px;
+transition:2s ease;
+}
+
+/* ===== EXPERIENCE ===== */
+.timeline{
+position:relative;
+max-width:900px;
+margin-top:2rem;
+}
+
+.timeline::after{
+content:'';
+position:absolute;
+width:4px;
+background:var(--primary);
+top:0;
+bottom:0;
+left:50%;
+margin-left:-2px;
+}
+
+.timeline-item{
+padding:20px 40px;
+position:relative;
+width:50%;
+}
+
+.timeline-item.left{
+left:0;
+text-align:right;
+}
+
+.timeline-item.right{
+left:50%;
+}
+
+.timeline-content{
+background:rgba(255,255,255,0.08);
+padding:20px;
+border-radius:15px;
+backdrop-filter:blur(8px);
+}
+
+.timeline-item::before{
+content:"";
+position:absolute;
+top:25px;
+width:20px;
+height:20px;
+border-radius:50%;
+background:var(--primary);
+z-index:1;
+}
+
+.timeline-item.left::before{
+right:-10px;
+}
+
+.timeline-item.right::before{
+left:-10px;
+}
+
+@media(max-width:768px){
+nav{
+position:fixed;
+top:0;
+right:0;
+height:100vh;
+width:70%;
+background:#000;
+flex-direction:column;
+padding-top:6rem;
+transform:translateX(100%);
+transition:0.3s;
+}
+nav.active{transform:translateX(0);}
+nav a{margin:1.5rem 0;}
+.menu-icon{display:block;}
+.timeline::after{left:10px;}
+.timeline-item{width:100%;padding-left:40px;padding-right:20px;text-align:left;}
+.timeline-item.right,.timeline-item.left{left:0;}
+.timeline-item::before{left:0;}
+}
+</style>
+</head>
+ <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+<body>
+
+<header>
+<div class="logo">Choolwe...</div>
+<i class="fas fa-bars menu-icon" id="menu"></i>
+<nav id="nav">
+<a href="#home">Home</a>
+<a href="#services">Services</a>
+<a href="#skills">Skills</a>
+<a href="#experience">Experience</a>
+<a href="#contact">Contact</a>
+</nav>
+<i class="fas fa-moon toggle" id="themeToggle"></i>
+</header>
+
+<section id="home" class="reveal">
+<div class="hero-img">
+<img id="profileImage" src="images/1.jpeg" alt="">
+</div>
+<h1>Hello, I'm Mutondo Choolwe</h1>
+<h3><span id="typing"></span><span class="cursor">|</span></h3>
+<p>Welcome to my corner of the web—where ideas from <b>ZED</b> Southern Province meet clean code and bold design. Stick around, because the future is being built right here.</p>
+<a href="#contact" class="btn">Hire Me</a>
+</section>
+
+<section id="services" class="reveal">
+<h1>Premium Services</h1>
+<div class="cards">
+<div class="card"><h3>Portfolio Websites</h3><p>Modern personal branding websites.</p></div>
+<div class="card"><h3>Business Websites</h3><p>Professional websites that grow brands.</p></div>
+<div class="card"><h3>Web Applications</h3><p>Interactive systems built with JavaScript & React.</p></div>
+</div>
+</section>
+
+<!-- SKILLS SECTION -->
+<section id="skills" class="reveal">
+<h1>My Skills</h1>
+<div class="skills-container">
+<div class="skill"><span>HTML</span><div class="progress"><div class="progress-bar" data-width="95%"></div></div></div>
+<div class="skill"><span>CSS</span><div class="progress"><div class="progress-bar" data-width="90%"></div></div></div>
+<div class="skill"><span>JavaScript</span><div class="progress"><div class="progress-bar" data-width="85%"></div></div></div>
+<div class="skill"><span>React</span><div class="progress"><div class="progress-bar" data-width="75%"></div></div></div>
+<div class="skill"><span>UI/UX Design</span><div class="progress"><div class="progress-bar" data-width="80%"></div></div></div>
+</div>
+</section>
+
+<!-- EXPERIENCE SECTION -->
+<section id="experience" class="reveal">
+<h1>Experience</h1>
+<div class="timeline">
+<div class="timeline-item left"><div class="timeline-content"><h3>2023 - Freelance Web Developer</h3><p>Designed and developed modern responsive websites for clients locally and internationally.</p></div></div>
+<div class="timeline-item right"><div class="timeline-content"><h3>2024 - Frontend Developer</h3><p>Built dynamic web applications using JavaScript and React with clean UI systems.</p></div></div>
+<div class="timeline-item left"><div class="timeline-content"><h3>2025 - Creative Content Creator</h3><p>Produced digital content and blogs focused on tech, design and personal branding.</p></div></div>
+</div>
+</section>
+
+<section id="contact" class="reveal">
+<h1>Let's Work Together</h1>
+<a href="tel:+260761248650" class="btn">📞 Call Me</a>
+<div class="socials">
+<a href="mailto:yourgmail@gmail.com?subject=Work%20Inquiry&body=Hello%20Mutondo%20Choolwe,%20I%20would%20like%20to%20work%20with%20you."><i class="fas fa-envelope"></i></a>
+<a href="https://wa.me/260761248650?text=Hello%20Mutondo%20Choolwe,%20I%20am%20interested%20in%20your%20services."><i class="fab fa-whatsapp"></i></a>
+<a href="https://web.facebook.com/profile.php?id=100094699462975"><i class="fab fa-facebook"></i></a>
+<a href="https://www.instagram.com/cm_rodrick/"><i class="fab fa-instagram"></i></a>
+<a href="https://www.tiktok.com/@rodrickcm?is_from_webapp=1&sender_device=pc"><i class="fab fa-tiktok"></i></a>
+</div>
+</section>
+
+<footer>
+© 2026 Mutondo Choolwe. All Rights Reserved.
+</footer>
+
+<script>
+/* MOBILE MENU */
+const menu=document.getElementById("menu");
+const nav=document.getElementById("nav");
+menu.onclick=()=>nav.classList.toggle("active");
+
+/* THEME TOGGLE */
+const toggle=document.getElementById("themeToggle");
+toggle.onclick=()=>{
+document.body.classList.toggle("light");
+toggle.classList.toggle("fa-sun");
+toggle.classList.toggle("fa-moon");
+};
+
+/* TYPING EFFECT */
+const words=["Web Developer","Web Designer","Random Blogger","Content Creator"];
+let i=0,j=0,deleting=false;
+const typing=document.getElementById("typing");
+
+function type(){
+const current=words[i];
+if(!deleting && j<current.length){
+typing.textContent+=current[j++];
+setTimeout(type,80);
+}else if(deleting && j>0){
+typing.textContent=current.substring(0,--j);
+setTimeout(type,50);
+}else{
+deleting=!deleting;
+if(!deleting) i=(i+1)%words.length;
+setTimeout(type,1000);
+}
+}
+type();
+
+/* SCROLL REVEAL */
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("active");
+}
+});
+},{threshold:0.2});
+document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
+
+/* AUTO CHANGING PROFILE IMAGE (SAFE VERSION) */
+document.addEventListener("DOMContentLoaded", () => {
+
+const profileImages = [
+"images/1.jpeg",
+"images/2.jpeg",
+"images/3.jpeg",
+"images/4.jpeg",
+"images/5.jpeg"
+];
+
+let currentProfileImage = 0;
+const profileImageElement = document.getElementById("profileImage");
+
+if (!profileImageElement) return; // stops errors if id not found
+
+setInterval(() => {
+
+profileImageElement.style.opacity = 0;
+
+setTimeout(() => {
+currentProfileImage = (currentProfileImage + 1) % profileImages.length;
+profileImageElement.src = profileImages[currentProfileImage];
+profileImageElement.style.opacity = 1;
+}, 500);
+
+}, 3000);
+
+});
+
+</script>
+
+</body>
+</html>
